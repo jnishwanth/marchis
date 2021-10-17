@@ -1,10 +1,23 @@
 #!/bin/bash
 
 ## Variables
+efi_part= "/dev/sda1"
+swap_part= "/dev/sda2"
+root_part= "/dev/sda3"
 timezone= "Asia/Kolkata"
 hostname= "arch"
 additional_pkgs= "networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
 
+mkswap $swap_part
+swapon $swap_part
+
+mkfs.ext4 $root_part
+mount $root_part /mnt
+
+sed -i -e "s/#ParallelDown/ParallelDown/g" /etc/pacman.conf
+pacstrap /mnt base linux linux-firmware
+
+mkfs.fat -F32 $efi_part
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot/EFI
 
@@ -48,5 +61,9 @@ echo "Installing GRUB..."
 grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 read a
+
+passwd
+exit
+umount -R /mnt
 
 echo "################--> Done!"
