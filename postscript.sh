@@ -1,18 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Variables
-#timezone = "Asia/Kolkata"
-#hostname = "arch"
-#additional_pkgs = "networkmanager efibootmgr git nvim lxde-common lxsession xmonad xmonad-contrib xterm alacritty xorg pulseaudio pulseaudio-alsa alsa-plugins alsa-utils automake autoconf dosfstools mtools basedevel"
+timezone= "Asia/Kolkata"
+hostname= "arch"
+additional_pkgs= "networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
+
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot/EFI
 
 ## Chroot into mnt
-#echo "Chrooting into install..."
-#arch-chroot /mnt
-#read a
+echo "Chrooting into install..."
+arch-chroot /mnt
+read a
 
 ## timezone and hwclock
 echo "Setting timezone and clock..."
-ln -sf /usr/share/zoneinfo/Asia/Kolkatta /etc/localtime
+ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 hwclock --systohc
 read a
 
@@ -27,16 +30,16 @@ read a
 
 ## hostname and hosts file
 echo "Setting hostname and hosts file..."
-echo "arch" >> /etc/hostname
+echo "$hostname" >> /etc/hostname
 
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 arch.localdomain arch" >> /etc/hosts
+echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
 read a
 
 ## Additional packages
 echo "Installing additional packages..."
-pacman -S grub efibootmgr networkmanager
+pacman -S $additional_pkgs
 systemctl enable NetworkManager
 read a
 
