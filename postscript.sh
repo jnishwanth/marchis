@@ -5,14 +5,10 @@ timezone = "Asia/Kolkata"
 hostname = "arch"
 additional_pkgs = "networkmanager efibootmgr git nvim lxde-common lxsession xmonad xmonad-contrib xterm alacritty xorg pulseaudio pulseaudio-alsa alsa-plugins alsa-utils automake autoconf dosfstools mtools basedevel"
 
-## Install base on mnt
-echo "Installing base packages..."
-read a
-
 ## Chroot into mnt
-echo "Chrooting into install..."
-arch-chroot /mnt
-read a
+#echo "Chrooting into install..."
+#arch-chroot /mnt
+#read a
 
 ## timezone and hwclock
 echo "Setting timezone and clock..."
