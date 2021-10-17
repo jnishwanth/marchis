@@ -18,8 +18,8 @@ sed -i -e "s/#ParallelDown/ParallelDown/g" /etc/pacman.conf
 pacstrap /mnt base linux linux-firmware
 
 mkfs.fat -F32 /dev/sda1
-mount /dev/sda1 /mnt/boot/
 mkdir /mnt/boot/EFI
+mount /dev/sda1 /mnt/boot/EFI
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
