@@ -21,6 +21,8 @@ mkfs.fat -F32 /dev/sda1
 mount /dev/sda1 /mnt/boot/
 mkdir /mnt/boot/EFI
 
+genfstab -U /mnt >> /mnt/etc/fstab
+
 ## Chroot into mnt
 echo "Chrooting into install..."
 arch-chroot /mnt
@@ -52,8 +54,10 @@ read a
 
 ## Additional packages
 echo "Installing additional packages..."
-pacman -S grub efibootmgr networkmanager lxde-common lxsession openbox alacritty xorg
+pacman -S grub efibootmgr networkmanager lxdm lxde-common lxsession openbox alacritty xorg
 systemctl enable NetworkManager
+systemctl enable lxdm.service
+
 read a
 
 ## GRUB
