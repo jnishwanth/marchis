@@ -7,6 +7,7 @@ Methind to run the scripts would be something like this:
 ``console
 root@achiso ~ # bash script1.sh
 ``
+
 ``console
 [root@archiso /]# bash script2.sh
 ``
