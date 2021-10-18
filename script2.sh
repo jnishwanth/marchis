@@ -32,6 +32,7 @@ echo "127.0.0.1 localhost
 
 ## Additional packages and desktop environment
 echo "Installing additional packages..."
+sed -i -e "s/#ParallelDown/ParallelDown/g" /etc/pacman.conf
 pacman -S "$ADDITIONAL_PKGS"
 systemctl enable NetworkManager
 systemctl enable lxdm.service
