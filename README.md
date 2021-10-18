@@ -3,11 +3,15 @@ This is a very barebones and beginner friendly script to install arch linux.
 The script has two parts, the first part is to be run in the live disk install medium, and ends after chrooting into the install.
 Then, the second part of the script should be run.
 
-Methind to run the scripts would be something like this:
+Method to run the scripts would be something like this:
 ```console
-root@achiso ~ # bash script1.sh
+root@archiso ~ # pacman -Sy git
+root@archiso ~ # git clone https://github.com/jnishwanth/marchis.git
+root@archiso ~ # bash script1.sh
 ```
 ```console
+[root@archiso /]# pacman -S git
+[root@archiso /]# git clone https://github.com/jnishwanth/marchis.git
 [root@archiso /]# bash script2.sh
 ```
 
