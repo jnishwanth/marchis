@@ -1,16 +1,17 @@
 #!/bin/bash
 
 ## Variables
-#efi_part= "/dev/sda1"
-#swap_part= "/dev/sda2"
-#root_part= "/dev/sda3"
-#timezone= "Asia/Kolkata"
-#hostname= "arch"
-#additional_pkgs= "networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
+#EFI_PART="/dev/sda1"
+#SWAP_PART="/dev/sda2"
+#ROOT_PART="/dev/sda3"
+TIMEZONE="Asia/Kolkata"
+HOSTNAME="arch"
+ADDITIONAL_PKGS="networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
+
 
 ## timezone and hwclock
 echo "Setting timezone and clock..."
-ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 hwclock --systohc
 
 ## Set locale
@@ -23,15 +24,15 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
 ## Set hostname and hosts file
 echo "Setting hostname and hosts file..."
-echo "archvbx" >> /etc/hostname
+echo $HOSTNAME >> /etc/hostname
 
-echo "127.0.0.1 localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 archvbx.localdomain archvbx" >> /etc/hosts
+echo "127.0.0.1 localhost
+::1       localhost
+127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
 ## Additional packages and desktop environment
 echo "Installing additional packages..."
-pacman -S grub efibootmgr networkmanager lxdm lxde-common lxsession openbox alacritty xorg
+pacman -S "$ADDITIONAL_PKGS"
 systemctl enable NetworkManager
 systemctl enable lxdm.service
 
@@ -41,6 +42,7 @@ grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Set root password
+echo "Setting password fot root user"
 passwd
 
 ## exit
