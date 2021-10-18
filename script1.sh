@@ -9,6 +9,7 @@ ROOT_PART="sda3"
 #ADDITIONAL_PKGS="networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
 
 ## Format and turn on swap partition
+echo "Formatting partitions, mounting partitions and installing base..."
 mkswap /dev/$SWAP_PART
 swapon /dev/$SWAP_PART
 
@@ -27,6 +28,7 @@ mkdir /mnt/boot/EFI
 mount /dev/sda1 /mnt/boot/EFI
 
 ## Generate filesystem tab
+echo "Generating filesystem tab..."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 ## Chroot into mnt
