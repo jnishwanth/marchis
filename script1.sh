@@ -1,20 +1,20 @@
 #!/bin/bash
 
 ## Variables
-EFI_PART="/dev/sda1"
-SWAP_PART="/dev/sda2"
-ROOT_PART="/dev/sda3"
+EFI_PART="sda1"
+SWAP_PART="sda2"
+ROOT_PART="sda3"
 #TIMEZONE="Asia/Kolkata"
 #HOSTNAME="arch"
 #ADDITIONAL_PKGS="networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
 
 ## Format and turn on swap partition
-mkswap $SWAP_PART
-swapon $SWAP_PART
+mkswap /dev/$SWAP_PART
+swapon /dev/$SWAP_PART
 
 ## Format and mount root partition
-mkfs.ext4 $ROOT_PART
-mount $ROOT_PART /mnt
+mkfs.ext4 /dev/$ROOT_PART
+mount /dev/$ROOT_PART /mnt
 
 ## Changing pacman ParallelDownloads from 1 to 5
 sed -i -e "s/#ParallelDown/ParallelDown/g" /etc/pacman.conf
@@ -22,7 +22,7 @@ sed -i -e "s/#ParallelDown/ParallelDown/g" /etc/pacman.conf
 pacstrap /mnt base linux linux-firmware git
 
 ## Format and mount efi partition
-mkfs.fat -F32 $EFI_PART
+mkfs.fat -F32 /dev/$EFI_PART
 mkdir /mnt/boot/EFI
 mount /dev/sda1 /mnt/boot/EFI
 

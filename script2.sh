@@ -6,7 +6,7 @@
 #ROOT_PART="/dev/sda3"
 TIMEZONE="Asia/Kolkata"
 HOSTNAME="arch"
-ADDITIONAL_PKGS="networkmanager efibootmgr git neovim lxde-common lxsession openbox alacritty xorg"
+ADDITIONAL_PKGS="grub networkmanager efibootmgr git neovim lxde alacritty xorg"
 
 
 ## timezone and hwclock
@@ -33,9 +33,9 @@ echo "127.0.0.1 localhost
 ## Additional packages and desktop environment
 echo "Installing additional packages..."
 sed -i -e "s/#ParallelDown/ParallelDown/g" /etc/pacman.conf
-pacman -S "$ADDITIONAL_PKGS"
+pacman --noconfirm -S $ADDITIONAL_PKGS
 systemctl enable NetworkManager
-systemctl enable lxdm.service
+systemctl enable lxdm
 
 ## GRUB
 echo "Installing GRUB bootloader..."
