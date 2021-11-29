@@ -11,7 +11,7 @@ root@archiso ~ # pacman -Sy git
 root@archiso ~ # git clone https://github.com/jnishwanth/marchis.git
 root@archiso ~ # bash script1.sh
 #+END_SRC
-#+BEGIN_SRC
+#+BEGIN_SRC [shell-mode]
 [root@archiso /]# pacman -S git
 [root@archiso /]# git clone https://github.com/jnishwanth/marchis.git
 [root@archiso /]# bash script2.sh
